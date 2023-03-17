@@ -1,0 +1,9 @@
+.cover{
+    background-image: url(../assets/images/techcover.jpg);
+    background-repeat: no-repeat;
+}
+
+.img{
+    width: 100vw;
+    height: 100vh;
+}

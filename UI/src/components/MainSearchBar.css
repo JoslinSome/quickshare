@@ -1,0 +1,18 @@
+.search{
+    width: 45vw;
+    height: 4vh;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.row{
+    display: flex;
+}
+
+.searchBtn{
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background-color: rgba(175, 175, 175, 0.85);
+    width: 40px;
+}
+
