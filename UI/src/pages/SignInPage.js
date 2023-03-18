@@ -4,6 +4,11 @@ import './SignInPage.css';
 import {auth, db} from '../config/firebaseConfig';
 import {signInWithEmailAndPassword} from 'firebase/auth';
 import {GoogleAuthProvider} from 'firebase/auth';
+import {signInWithPopup} from 'firebase/auth';
+import {
+  checkIfUserExists,
+  createUser,
+} from '../firebaseFunctions/firebaseFunctions';
 
 function SignInPage() {
   const [email, setEmail] = useState('');
@@ -20,9 +25,23 @@ function SignInPage() {
   };
 
   const signInWithGoogle = async () => {
+    // Sign in using a popup.
     const provider = new GoogleAuthProvider();
+    provider.addScope('profile');
+    provider.addScope('email');
     try {
-      await auth.signInWithPopup(provider);
+      const result = await signInWithPopup(auth, provider);
+
+      // The signed-in user info.
+      const user = result.user;
+      console.log(user);
+      if ((await checkIfUserExists(user.uid)) === null) {
+        await createUser(user.uid, 'google');
+      }
+      // This gives you a Google Access Token.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      console.log(token);
       navigate('/home');
     } catch (error) {
       alert(error.message);
