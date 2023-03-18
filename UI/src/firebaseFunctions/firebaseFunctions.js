@@ -18,8 +18,8 @@ async function createUser(uid) {
     email: user.email,
     name: name,
     photoURL: '',
-    phoneNumber: '',
-    address: '',
+    phoneNumber: 'Unknown',
+    address: 'Unknown',
   });
 }
 
