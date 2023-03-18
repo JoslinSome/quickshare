@@ -1,18 +1,31 @@
-.search{
+.search {
     width: 45vw;
     height: 4vh;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
+    background: rgba(255, 255, 255, 0.7);
+    border: none;
+    font-weight: bold;
+    color: #333;
+    padding-left: 10px;
 }
 
-.row{
+.row {
     display: flex;
 }
 
-.searchBtn{
+.searchBtn {
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
-    background-color: rgba(175, 175, 175, 0.85);
-    width: 40px;
+    /* make background steel grey */
+    background-color: rgba(140, 140, 140, 0.7);
+    width: 80px;
+    height: 55px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s;
 }
 
+.searchBtn:hover {
+    background-color: rgba(140, 140, 140, 0.85);
+}
