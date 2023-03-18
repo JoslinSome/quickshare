@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
 import {FaBars, FaTimes} from 'react-icons/fa';
 import {Icon} from '@iconify/react';
 import {ShoppingCartOutlined} from '@ant-design/icons';
+import {auth} from '../config/firebaseConfig';
+import {logout} from '../firebaseFunctions/firebaseFunctions';
 
 import './NavBar.css';
 import Logo from '../assets/images/Logo.png';
@@ -10,6 +12,9 @@ import MainSearchBar from './MainSearchBar';
 function Navbar(props) {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
+  const [user, setUser] = useState(null);
+  const [userIsSet, setUserIsSet] = useState(false);
+  const navigate = useNavigate();
 
   function handleClick() {
     setClick(!click);
@@ -25,6 +30,24 @@ function Navbar(props) {
     }
     window.addEventListener('resize', displayButton);
   }
+
+  useEffect(() => {
+    async function getAuth() {
+      auth.onAuthStateChanged(user => {
+        if (user) {
+          setUser(user);
+          setUserIsSet(true);
+        } else {
+          setUser(null);
+          setUserIsSet(true);
+        }
+      });
+    }
+    getAuth()
+      .then(r => console.log(r))
+      .catch(e => console.log(e));
+  }, [userIsSet]);
+
   return (
     <div className="navbar">
       <div className="navbar-container container">
@@ -36,11 +59,28 @@ function Navbar(props) {
           {click ? <FaTimes /> : <FaBars />}
         </div>
         <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-          <li>
-            <Link to="/sign-in" className="nav-links">
-              Sign In
-            </Link>
-          </li>
+          <>
+            {userIsSet && user ? (
+              <li>
+                <span
+                  className={'nav-links'}
+                  onClick={async () => {
+                    await logout();
+                    setUser(null);
+                    setUserIsSet(false);
+                    navigate('/');
+                  }}>
+                  Sign Out
+                </span>
+              </li>
+            ) : (
+              <li>
+                <Link to="/sign-in" className="nav-links">
+                  Sign In
+                </Link>
+              </li>
+            )}
+          </>
           <li>
             <Link to="/" className="nav-links">
               Rent

@@ -1,5 +1,6 @@
 import {auth, db, app} from '../config/firebaseConfig';
 import {addDoc, collection, getDoc, doc} from 'firebase/firestore';
+import {useNavigation} from 'react-router-dom';
 
 async function createUser(uid) {
   const userRef = doc(db, 'users', uid);
@@ -59,4 +60,8 @@ async function checkIfUserExists(uid) {
   }
 }
 
-export {createUser, updateUser, getUser, deleteUser, checkIfUserExists};
+async function logout() {
+  await auth.signOut();
+}
+
+export {createUser, updateUser, getUser, deleteUser, checkIfUserExists, logout};
