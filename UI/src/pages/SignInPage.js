@@ -35,7 +35,8 @@ function SignInPage() {
       // The signed-in user info.
       const user = result.user;
       console.log(user);
-      if ((await checkIfUserExists(user.uid)) === null) {
+      const userId = auth.currentUser.uid;
+      if ((await checkIfUserExists(userId)) === null) {
         await createUser(user.uid, 'google');
       }
       // This gives you a Google Access Token.

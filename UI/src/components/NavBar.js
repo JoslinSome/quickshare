@@ -96,6 +96,15 @@ function Navbar(props) {
               <ShoppingCartOutlined size={60} />
             </Link>
           </li>
+          <>
+            {userIsSet && user ? (
+              <li>
+                <Link to="/settings" className="nav-links">
+                  Settings
+                </Link>
+              </li>
+            ) : null}
+          </>
         </ul>
       </div>
     </div>

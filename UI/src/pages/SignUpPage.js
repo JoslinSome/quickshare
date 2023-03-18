@@ -18,9 +18,7 @@ function SignUpPage() {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       const user = auth.currentUser;
-      if ((await checkIfUserExists(user.uid)) == null) {
-        await createUser(user.uid);
-      }
+      await createUser(user.uid);
       navigate('/home');
     } catch (error) {
       alert(error.message);
@@ -38,9 +36,7 @@ function SignUpPage() {
       // The signed-in user info.
       const user = result.user;
       console.log(user);
-      if ((await checkIfUserExists(user.uid)) == null) {
-        await createUser(user.uid);
-      }
+      await createUser(user.uid);
       // This gives you a Google Access Token.
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;

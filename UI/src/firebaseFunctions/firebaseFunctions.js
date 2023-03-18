@@ -1,5 +1,5 @@
 import {auth, db, app} from '../config/firebaseConfig';
-import {addDoc, collection, getDoc, doc} from 'firebase/firestore';
+import {addDoc, collection, getDoc, doc, setDoc} from 'firebase/firestore';
 import {useNavigation} from 'react-router-dom';
 
 async function createUser(uid) {
@@ -13,12 +13,13 @@ async function createUser(uid) {
   if (name == null) {
     name = 'User';
   }
-  return await addDoc(collection(db, 'users'), {
+  return await setDoc(doc(db, 'users', uid), {
     uid,
     email: user.email,
     name: name,
     photoURL: '',
     phoneNumber: '',
+    address: '',
   });
 }
 
@@ -32,9 +33,13 @@ async function updateUser(uid, data) {
 
 async function getUser(uid) {
   const userRef = doc(db, 'users', uid);
+  console.log('userRef: ', userRef);
   const userSnap = await getDoc(userRef);
+  console.log('userSnap: ', userSnap.data());
   if (userSnap.exists()) {
     return userSnap.data();
+  } else {
+    return null;
   }
 }
 
