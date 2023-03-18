@@ -5,6 +5,7 @@ import Navbar from "./components/NavBar";
 import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
 import Home from "./pages/Home";
 import SellPage from "./pages/SellPage"
+import RentPage from "./pages/RentPage";
 
 
 function App() {
@@ -18,7 +19,8 @@ function App() {
         <Navbar/>
         <Routes>
           <Route path='/' element={<Home/>}/>
-          <Route path='/sell' element={<SellPage/>}/>
+          <Route path='/rent' element={<RentPage/>}/>
+          <Route path='/share' element={<SellPage/>}/>
 
         </Routes>
       </Router>

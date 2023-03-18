@@ -39,11 +39,11 @@ function Navbar(props) {
                 <ul className={click ? 'nav-menu active' : 'nav-menu' }>
                     <li>
                         <Link to='/' className='nav-links'>
-                            Sign In
+                            sign In
                         </Link>
                     </li>
                     <li>
-                        <Link to='/' className='nav-links'>
+                        <Link to='/rent' className='nav-links'>
                             Rent
                         </Link>
                     </li>
@@ -53,7 +53,7 @@ function Navbar(props) {
                         </Link>
                     </li>
                     <li>
-                        <Link to='/g raph' className='nav-links'>
+                        <Link to='/graph' className='nav-links'>
                             <ShoppingCartOutlined size={60}/>
                         </Link>
                     </li>
