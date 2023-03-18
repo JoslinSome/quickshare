@@ -88,7 +88,7 @@ function Navbar(props) {
             )}
           </>
           <li>
-            <Link to="/" className="nav-links">
+            <Link to="/rent" className="nav-links">
               Rent
             </Link>
           </li>
@@ -98,7 +98,7 @@ function Navbar(props) {
             </Link>
           </li>
           <li>
-            <Link to="/graph" className="nav-links">
+            <Link to="/cart" className="nav-links">
               <ShoppingCartOutlined size={60} />
             </Link>
           </li>
