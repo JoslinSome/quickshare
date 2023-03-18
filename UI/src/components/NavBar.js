@@ -51,9 +51,15 @@ function Navbar(props) {
   return (
     <div className="navbar">
       <div className="navbar-container container">
-        <Link to="/" className="navbar-logo">
-          <img src={Logo} className="logo" />
-        </Link>
+        {userIsSet && user ? (
+          <Link to="/home" className="navbar-logo">
+            <img src={Logo} className="logo" />
+          </Link>
+        ) : (
+          <Link to="/" className="navbar-logo">
+            <img src={Logo} className="logo" />
+          </Link>
+        )}
         <MainSearchBar />
         <div className="menu-icon" onClick={handleClick}>
           {click ? <FaTimes /> : <FaBars />}
