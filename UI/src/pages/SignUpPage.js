@@ -3,8 +3,12 @@ import {Link} from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
 import './SignUpPage.css';
 import {auth, db, app} from '../config/firebaseConfig';
-import {createUserWithEmailAndPassword} from 'firebase/auth';
+import {createUserWithEmailAndPassword, signInWithPopup} from 'firebase/auth';
 import {GoogleAuthProvider} from 'firebase/auth';
+import {
+  checkIfUserExists,
+  createUser,
+} from '../firebaseFunctions/firebaseFunctions';
 function SignUpPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -13,6 +17,8 @@ function SignUpPage() {
   const signUpWithEmail = async () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+      const user = auth.currentUser;
+      await createUser(user.uid);
       navigate('/home');
     } catch (error) {
       alert(error.message);
@@ -20,9 +26,21 @@ function SignUpPage() {
   };
 
   const signUpWithGoogle = async () => {
+    // Sign in using a popup.
     const provider = new GoogleAuthProvider();
+    provider.addScope('profile');
+    provider.addScope('email');
     try {
-      await auth.signInWithPopup(provider);
+      const result = await signInWithPopup(auth, provider);
+
+      // The signed-in user info.
+      const user = result.user;
+      console.log(user);
+      await createUser(user.uid);
+      // This gives you a Google Access Token.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      console.log(token);
       navigate('/home');
     } catch (error) {
       alert(error.message);

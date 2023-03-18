@@ -1,0 +1,44 @@
+.settings-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-size: 1.5rem;
+    color: #ffffff;
+}
+
+.settings-input {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    width: 80%;
+}
+
+.settings-input label {
+    margin-bottom: 0.5rem;
+}
+
+.settings-input input {
+    padding: 0.5rem;
+    border-radius: 10px;
+    border: none;
+    font-size: 1rem;
+}
+
+button {
+    background-color: #ffffff;
+    color: #333;
+    border: none;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+button:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #111;
+}
