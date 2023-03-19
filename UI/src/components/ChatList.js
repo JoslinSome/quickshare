@@ -43,6 +43,19 @@ function ChatList({onSelectChat}) {
           key={chat.id}
           className="chat-list-item"
           onClick={() => onSelectChat(chat)}>
+          <img
+            className="profile-picture"
+            src={
+              chat.data.members[auth.currentUser.uid].photoURL
+                ? chat.data.members[auth.currentUser.uid].photoURL
+                : 'https://www.gr' +
+                  'avatar.com/avat' +
+                  'ar/000000' +
+                  '00000000000000000000000000?d=mp&f=y'
+            }
+            alt="profile"
+          />
+          {/* Display the current user's name */}
           <h1>Chat with {chat.data.members[auth.currentUser.uid].name}</h1>
           {/* Display the recipient's name */}
           {chat.data.members &&

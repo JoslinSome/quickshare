@@ -18,3 +18,11 @@
 .chat-list-item:hover {
     background-color: #f0f0f0;
 }
+
+.profile-picture {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 50%;
+}
