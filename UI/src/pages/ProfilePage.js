@@ -1,91 +1,113 @@
 import React, {useState, useEffect} from 'react';
-import {auth, db, storage} from '../config/firebaseConfig';
-import {getDoc, doc} from 'firebase/firestore';
-import {ref, uploadBytes, getDownloadURL} from 'firebase/storage';
+import {auth, storage} from '../config/firebaseConfig';
+import {getDownloadURL, ref, uploadBytesResumable} from 'firebase/storage';
+import {getResizedImage} from '../utils/imageUtils';
 import './ProfilePage.css';
+import {getUser, updateUser} from '../firebaseFunctions/firebaseFunctions';
 
-function ProfilePage() {
+function Profile() {
   const [user, setUser] = useState(null);
-  const [profilePic, setProfilePic] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      const userRef = doc(db, 'users', auth.currentUser.uid);
-      const userSnap = await getDoc(userRef);
-      if (userSnap.exists()) {
-        setUser(userSnap.data());
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if (user) {
+        console.log('user: ', user);
+        setUser(
+          getUserInfo()
+            .then(r => console.log('r: ', r))
+            .catch(e => console.log('e: ', e)),
+        );
+      } else {
+        setUser(null);
       }
+    });
+
+    return () => {
+      unsubscribe();
     };
-    fetchUserData().then(r => console.log('r: ', r));
   }, []);
 
-  const resizeImage = file => {
-    // Resize the image to 150x150
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        const img = new Image();
-        img.src = reader.result;
-        img.onload = () => {
-          const elem = document.createElement('canvas');
-          elem.width = 150;
-          elem.height = 150;
-          const ctx = elem.getContext('2d');
-          // img.width and img.height will contain the original dimensions
-          ctx.drawImage(img, 0, 0, 150, 150);
-          ctx.canvas.toBlob(
-            blob => {
-              resolve(blob);
-            },
-            'image/jpeg',
-            1,
-          );
-        };
-        reader.onerror = error => reject(error);
-      };
-    });
-  };
+  async function getUserInfo() {
+    const {uid} = auth.currentUser;
+    const user = await getUser(uid);
+    setUser(user);
+  }
 
-  const handleProfilePicUpload = async e => {
+  useEffect(() => {
+    setUser(
+      getUserInfo()
+        .then(r => console.log('r: ', r))
+        .catch(e => console.log('e: ', e)),
+    );
+  }, []);
+
+  const handleImageUpload = async e => {
+    if (!e.target.files || e.target.files.length === 0) return;
+
     const file = e.target.files[0];
-    if (!file) return;
+    const resizedImage = await getResizedImage(file, 150, 150);
 
-    // Resize the image
-    const resizedImage = await resizeImage(file);
-    const storageRef = ref(storage, `profilePics/${auth.currentUser.uid}`);
-    await uploadBytes(storageRef, resizedImage);
-    const url = await getDownloadURL(storageRef);
-    setProfilePic(url);
+    setLoading(true);
+    setProgress(0);
+
+    const storageRef = ref(storage, `profile-pictures/${user.uid}`);
+    const uploadTask = uploadBytesResumable(storageRef, resizedImage);
+
+    uploadTask.on(
+      'state_changed',
+      snapshot => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setProgress(progress);
+      },
+      error => {
+        console.error('Error uploading the image:', error);
+        setLoading(false);
+      },
+      async () => {
+        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+        await updateUser(user.uid, {photoURL: downloadURL});
+        setLoading(false);
+        // refresh the page to show the new profile picture
+        window.location.reload();
+      },
+    );
   };
 
   return (
     <div className="profile">
-      <h1>Profile</h1>
-      <div className="profile-pic-container">
+      <div className="profile-picture">
         <img
-          src={
-            profilePic || user?.photoURL || 'https://via.placeholder.com/150'
-          }
+          src={user?.photoURL || 'https://via.placeholder.com/150'}
           alt="Profile"
-          className="profile-pic"
         />
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleProfilePicUpload}
-          className="profile-pic-upload"
-        />
+        {loading && (
+          <div className="loading-overlay">
+            <div className="spinner-border text-light" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+            <div>{progress.toFixed(0)}%</div>
+          </div>
+        )}
       </div>
+      <label htmlFor="profile-pic-upload" className="profile-pic-upload">
+        Change Profile Picture
+      </label>
+      <input
+        type="file"
+        id="profile-pic-upload"
+        accept="image/*"
+        onChange={handleImageUpload}
+        style={{display: 'none'}}
+      />
       <div className="profile-info">
-        <h2>{user?.name}</h2>
-        <p>Email: {user?.email}</p>
-        <p>Phone: {user?.phoneNumber}</p>
-        <p>Address: {user?.address}</p>
-        {/* Add other relevant information here */}
+        <h2>{user?.displayName || 'No Name'}</h2>
+        <p>{user?.email}</p>
       </div>
     </div>
   );
 }
 
-export default ProfilePage;
+export default Profile;

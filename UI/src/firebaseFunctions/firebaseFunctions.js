@@ -1,5 +1,12 @@
 import {auth, db, app} from '../config/firebaseConfig';
-import {addDoc, collection, getDoc, doc, setDoc} from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  getDoc,
+  doc,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
 import {serverTimestamp} from 'firebase/firestore';
 
 // ... other imports
@@ -30,7 +37,7 @@ async function updateUser(uid, data) {
   const userRef = doc(db, 'users', uid);
   const userSnap = await getDoc(userRef);
   if (userSnap.exists()) {
-    return await userRef.update(data);
+    return await updateDoc(userRef, data);
   }
 }
 

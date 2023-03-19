@@ -28,6 +28,7 @@ function RoutesNavigation() {
         <Route path="*" element={<div>404 Not Found</div>} />
         <Route path="messages" element={<MessagingPage />} />
         <Route path="profile" element={<ProfilePage />} />
+        <Route path="sell" element={<SellPage />} />
       </Routes>
     </Router>
   );
