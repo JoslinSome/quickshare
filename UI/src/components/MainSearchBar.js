@@ -2,11 +2,15 @@ import './MainSearchBar.css';
 import React from 'react';
 import {useState} from 'react';
 import {search} from 'react-icons-kit/ionicons/search';
+import {generateItems} from '../firebaseFunctions/firebaseFunctions';
 function MainSearchBar(props) {
   const [input, setInput] = useState('');
   const handleSubmit = e => {
     e.preventDefault();
     console.log(input);
+    generateItems()
+      .then()
+      .catch(e => console.log(e));
   };
 
   return (

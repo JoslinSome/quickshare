@@ -130,7 +130,40 @@ async function addExampleChats() {
   }
 }
 
-// ... exports
+async function generateItems() {
+  console.log('Generating items...');
+  const items = [];
+  const imageLinks = [
+    'https://firebasestorage.googleapis.com/v0/b/quicksharejb.appspot.com/o/TEST_IMAGES%2FTV1.png?alt=media&token=20acf62b-e134-4e0c-8218-a8b0c5799571',
+    'https://firebasestorage.googleapis.com/v0/b/quicksharejb.appspot.com/o/TEST_IMAGES%2FTV2.png?alt=media&token=c7aaec12-4d76-40f7-9dbd-ce1214982701',
+    'https://firebasestorage.googleapis.com/v0/b/quicksharejb.appspot.com/o/TEST_IMAGES%2FTV3.png?alt=media&token=5847672d-36a8-4f2e-ba6b-fcd1e19d77d7',
+  ];
+
+  for (let i = 0; i < 30; i++) {
+    items.push({
+      id: i + 1,
+      images: imageLinks,
+      title: `Item ${i + 1}`,
+      description: `This is the description of item ${i + 1}.`,
+      price: parseFloat((Math.random() * 100).toFixed(2)),
+      seller: `Seller ${(i % 10) + 1}`,
+      location: `Location ${(i % 10) + 1}`,
+      category: `Category ${(i % 10) + 1}`,
+    });
+  }
+
+  const itemsRef = collection(db, 'items');
+
+  // Adding generated items to Firebase collection
+  for (const item of items) {
+    await addDoc(itemsRef, item);
+  }
+  console.log('Added items to Firebase');
+}
+
+// Call the generateItems function to add sample items to Firebase
+// Uncomment the following line and run the app once to generate the items
+// generateItems();
 
 export {
   createUser,
@@ -139,5 +172,5 @@ export {
   deleteUser,
   checkIfUserExists,
   logout,
-  addExampleChats,
+  generateItems,
 };
