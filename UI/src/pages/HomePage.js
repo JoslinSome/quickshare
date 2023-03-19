@@ -35,9 +35,11 @@ function HomePage() {
 
   return (
     <AuthCheck>
-      <div className="home-page">
-        <h1>Home Page</h1>
-        <button onClick={signOut}>Sign Out</button>
+      <div className="background">
+        <div className="home-page">
+          <h1>Home Page</h1>
+          <button onClick={signOut}>Sign Out</button>
+        </div>
       </div>
     </AuthCheck>
   );

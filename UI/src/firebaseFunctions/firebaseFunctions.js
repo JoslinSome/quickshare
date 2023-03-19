@@ -165,12 +165,4 @@ async function generateItems() {
 // Uncomment the following line and run the app once to generate the items
 // generateItems();
 
-export {
-  createUser,
-  updateUser,
-  getUser,
-  deleteUser,
-  checkIfUserExists,
-  logout,
-  generateItems,
-};
+export {createUser, updateUser, getUser, deleteUser, checkIfUserExists, logout};
