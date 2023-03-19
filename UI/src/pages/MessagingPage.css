@@ -1,0 +1,15 @@
+.messaging-page {
+    display: flex;
+    height: 100%;
+}
+
+.messaging-page-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    flex-grow: 1;
+    background-color: #f8f8f8;
+    font-size: 1.5rem;
+    color: #666;
+}

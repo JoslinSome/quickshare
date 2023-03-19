@@ -104,11 +104,18 @@ function Navbar(props) {
           </li>
           <>
             {userIsSet && user ? (
-              <li>
-                <Link to="/settings" className="nav-links">
-                  Settings
-                </Link>
-              </li>
+              <>
+                <li>
+                  <Link to="/messages" className="nav-links">
+                    Messages
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/settings" className="nav-links">
+                    Settings
+                  </Link>
+                </li>
+              </>
             ) : null}
           </>
         </ul>
