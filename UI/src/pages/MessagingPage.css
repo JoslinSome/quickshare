@@ -1,6 +1,20 @@
 .messaging-page {
     display: flex;
+    height: 100vh; /* Adjust this value according to your layout requirements */
+}
+
+.chat-list-wrapper,
+.chat-wrapper {
+    overflow-y: auto;
     height: 100%;
+}
+
+.chat-list-wrapper {
+    flex: 1;
+}
+
+.chat-wrapper {
+    flex: 2;
 }
 
 .messaging-page-placeholder {

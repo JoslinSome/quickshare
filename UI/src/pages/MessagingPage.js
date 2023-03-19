@@ -13,9 +13,13 @@ function MessagingPage() {
 
   return (
     <div className="messaging-page">
-      <ChatList onSelectChat={setSelectedChat} />
+      <div className="chat-list-wrapper">
+        <ChatList onSelectChat={setSelectedChat} />
+      </div>
       {selectedChat ? (
-        <Chat selectedChat={selectedChat} />
+        <div className="chat-wrapper">
+          <Chat selectedChat={selectedChat} />
+        </div>
       ) : (
         <div className="messaging-page-placeholder">
           <h2>Select a chat to start messaging!</h2>

@@ -64,7 +64,11 @@ function Chat({selectedChat, onBack}) {
     <div className="chat">
       <div className="chat-messages">
         {messages.map(({id, data}) => (
-          <div key={id} className="chat-message">
+          <div
+            key={id}
+            className={`chat-message ${
+              data.sender === currentUserId ? 'current-user' : 'other-user'
+            }`}>
             <p>
               {(() => {
                 try {
