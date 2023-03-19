@@ -1,6 +1,16 @@
 import {auth, db, app} from '../config/firebaseConfig';
-import {addDoc, collection, getDoc, doc, setDoc} from 'firebase/firestore';
-import {useNavigation} from 'react-router-dom';
+import {
+  addDoc,
+  collection,
+  getDoc,
+  doc,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
+import {serverTimestamp} from 'firebase/firestore';
+
+// ... other imports
+import {v4 as uuidv4} from 'uuid';
 
 async function createUser(uid) {
   const userRef = doc(db, 'users', uid);
@@ -27,7 +37,7 @@ async function updateUser(uid, data) {
   const userRef = doc(db, 'users', uid);
   const userSnap = await getDoc(userRef);
   if (userSnap.exists()) {
-    return await userRef.update(data);
+    return await updateDoc(userRef, data);
   }
 }
 
@@ -69,4 +79,65 @@ async function logout() {
   await auth.signOut();
 }
 
-export {createUser, updateUser, getUser, deleteUser, checkIfUserExists, logout};
+// ... other functions
+
+async function addExampleChats() {
+  console.log('Adding example chats...');
+  const currentUser = auth.currentUser;
+  const userIds = ['user1', 'user2', 'user3', 'user4', 'user5'];
+  const userNames = ['Alice', 'Bob', 'Charlie', 'David', 'Eve'];
+
+  for (let i = 0; i < userIds.length; i++) {
+    // Create a chat document
+    const userId = userIds[i];
+    const chatRef = await addDoc(collection(db, 'privateChats'), {
+      members: {
+        [currentUser.uid]: {
+          name: currentUser.displayName,
+        },
+        [userIds[i]]: {
+          name: userNames[i],
+        },
+      },
+    });
+    console.log('ChatRef: ', chatRef);
+
+    console.log('Added example chat with ', userNames[i]);
+    // Add example messages
+    const messages = [
+      {
+        content: `Hello, ${userNames[i]}!`,
+        timestamp: serverTimestamp(),
+        sender: currentUser.uid,
+        recipient: userIds[i],
+      },
+      {
+        content: `Hi, ${currentUser.displayName}!`,
+        timestamp: serverTimestamp(),
+        sender: userIds[i],
+        recipient: currentUser.uid,
+      },
+    ];
+
+    for (const message of messages) {
+      await setDoc(
+        doc(db, 'privateChats', chatRef.id, 'messages', uuidv4()),
+        message,
+      );
+      console.log('Added example chat message: ', message);
+    }
+    console.log('Added example chat messages with ', userNames[i]);
+  }
+}
+
+// ... exports
+
+export {
+  createUser,
+  updateUser,
+  getUser,
+  deleteUser,
+  checkIfUserExists,
+  logout,
+  addExampleChats,
+};

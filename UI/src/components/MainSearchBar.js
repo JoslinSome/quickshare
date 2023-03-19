@@ -1,19 +1,29 @@
-import "./MainSearchBar.css"
+import './MainSearchBar.css';
 import React from 'react';
-import {search} from 'react-icons-kit/ionicons/search'
+import {useState} from 'react';
+import {search} from 'react-icons-kit/ionicons/search';
 function MainSearchBar(props) {
-    return (
-        <div >
-            <h1>asdsa</h1>
-            <div className="row">
-                <input className="search" placeholder="Search for item"/>
-                <div onClick={()=> console.log("")} className="searchBtn">
-                    <search/>
-                </div>
-            </div>
+  const [input, setInput] = useState('');
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log(input);
+  };
 
-        </div>
-    );
+  return (
+    <div>
+      <div className="row">
+        <form className="search-bar" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Search for item"
+            value={input}
+            onChange={e => setInput(e.target.value)}
+          />
+          <button type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  );
 }
 
 export default MainSearchBar;

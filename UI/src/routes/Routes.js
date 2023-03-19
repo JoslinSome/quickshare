@@ -8,7 +8,9 @@ import SellPage from '../pages/SellPage';
 import Navbar from '../components/NavBar';
 import HomePage from '../pages/HomePage';
 import SettingsPage from '../pages/SettingsPage';
-import RentPage from "../pages/RentPage";
+import RentPage from '../pages/RentPage';
+import MessagingPage from '../pages/MessagingPage';
+import ProfilePage from '../pages/ProfilePage';
 
 function RoutesNavigation() {
   return (
@@ -21,10 +23,12 @@ function RoutesNavigation() {
         <Route path="/" element={<WelcomePage />} />
         <Route path="/share" element={<SellPage />} />
         <Route path="/home" element={<HomePage />} />
-        <Route path="/settings" element={<SettingsPage />} />
-          <Route path='/rent' element={<RentPage/>}/>
-          <Route path="*" element={<div>404 Not Found</div>} />
-
+        <Route path="/account-settings" element={<SettingsPage />} />
+        <Route path="/rent" element={<RentPage />} />
+        <Route path="*" element={<div>404 Not Found</div>} />
+        <Route path="messages" element={<MessagingPage />} />
+        <Route path="profile" element={<ProfilePage />} />
+        <Route path="sell" element={<SellPage />} />
       </Routes>
     </Router>
   );
