@@ -5,6 +5,8 @@ import {Icon} from '@iconify/react';
 import {ShoppingCartOutlined} from '@ant-design/icons';
 import {auth} from '../config/firebaseConfig';
 import {logout} from '../firebaseFunctions/firebaseFunctions';
+import {Menu, Dropdown} from 'antd';
+import {SettingOutlined} from '@ant-design/icons';
 
 import './NavBar.css';
 import Logo from '../assets/images/Logo.png';
@@ -47,6 +49,26 @@ function Navbar(props) {
       .then(r => console.log(r))
       .catch(e => console.log(e));
   }, [userIsSet]);
+
+  const settingsMenu = (
+    <Menu>
+      <Menu.Item>
+        <Link to="/account-settings" onClick={closeMenu}>
+          Account Settings
+        </Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link to="/messages" onClick={closeMenu}>
+          Messages
+        </Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link to="/profile" onClick={closeMenu}>
+          Profile
+        </Link>
+      </Menu.Item>
+    </Menu>
+  );
 
   return (
     <div className="navbar">
@@ -106,14 +128,14 @@ function Navbar(props) {
             {userIsSet && user ? (
               <>
                 <li>
-                  <Link to="/messages" className="nav-links">
-                    Messages
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/settings" className="nav-links">
-                    Settings
-                  </Link>
+                  <Dropdown
+                    overlay={settingsMenu}
+                    placement="bottomRight"
+                    arrow>
+                    <span className="nav-links">
+                      <SettingOutlined />
+                    </span>
+                  </Dropdown>
                 </li>
               </>
             ) : null}
