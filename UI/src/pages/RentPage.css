@@ -1,0 +1,42 @@
+.itemsContainer{
+    display: flex;
+    flex-wrap: wrap;
+    z-index: 0;
+    margin-top: -45vh;
+}
+.categories{
+    background-color: #0c1834;
+    height: 60px;
+    display: flex;
+    justify-content: space-evenly;
+    position: sticky;
+
+
+}
+.background{
+    height: 60vh;
+    background-color: #001F2D;
+    z-index: -1;
+    position: sticky;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-top: -3vh;
+}
+
+.rentText{
+    z-index: 0;
+    color: white;
+    padding-right: 50px;
+
+}
+.rentText:hover {
+    border-color: white;
+    border-width: 10px;
+    z-index: 0;
+    transition: all 0.3s ease-out;
+    background: #b72525;
+    border-radius: 10px;
+
+}

@@ -18,6 +18,8 @@
     z-index: 1;
     width: 100%;
     max-width: 1800px;
+
+    padding-right: 50px;
 }
 
 .navbar-logo {
@@ -53,7 +55,7 @@
 }
 
 .nav-links {
-    color: #ffffff;
+    color: #000000;
     display: flex;
     align-items: center;
     text-decoration: none;
@@ -61,14 +63,12 @@
     height: 100%;
     font-weight: bold;
 }
-
 .nav-links:hover {
     transition: all 0.3s ease-out;
-    background: rgba(255, 255, 255, 0.2);
-    color: #ffffff;
+    background: #8f8c8c;
+    color: #242424;
     border-radius: 10px;
 }
-
 .fa-bars {
     color: #fff;
 }
@@ -76,11 +76,9 @@
 .menu-icon {
     display: none;
 }
-
-.logo {
+.logo{
     width: 300px;
 }
-
 @media screen and (max-width: 960px) {
     .NavbarItems {
         position: relative;
@@ -106,6 +104,7 @@
         z-index: 1;
     }
 
+
     .nav-item:hover {
         border: none;
     }
@@ -113,6 +112,8 @@
     .nav-item {
         width: 100%;
     }
+
+
 
     .menu-icon {
         display: block;
