@@ -16,7 +16,7 @@ QuickShare is a web application that enables users to rent out items to others f
 
 ## How to use
 
-Launch Website [here](https://quicksharejb.web.app/)
+Launch Website <a href="[http://example.com/](https://quicksharejb.web.app/)" target="_blank">here</a>
 
 ## Credits
 
