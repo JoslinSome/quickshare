@@ -10,6 +10,10 @@ QuickShare is a web application that enables users to rent out items to others f
 - In-app messaging for easy communication between users
 - Calendar integration for managing rental availability and bookings
 
+## Example Use
+
+![QuickShareGif1](https://user-images.githubusercontent.com/71299314/226373528-37133e02-4e2c-40bd-8872-74856a2d3ef3.gif)
+
 ## Credits
 
 - **Joslin Some** - Owner and Visionary
