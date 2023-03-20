@@ -49,7 +49,7 @@ function SignUpPage() {
 
   return (
     <div className="sign-up-page">
-      <h1>Sign Up Page</h1>
+      <h1>Create An Account</h1>
       <input
         type="email"
         placeholder="Email"

@@ -52,6 +52,8 @@
     align-items: center;
     padding: 1rem;
     background-color: #f8f8f8;
+    border-top: 1px solid #ccc;
+    margin-bottom: auto;
 }
 
 .chat-input input {

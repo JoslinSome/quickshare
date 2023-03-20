@@ -1,0 +1,87 @@
+.rent-item {
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative; /* Add this line */
+}
+
+.rent-item::before {
+    content: "";
+    height: 60vh;
+    background-color: #001F2D;
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-top: -3vh;
+}
+
+.rent-item h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.rent-item form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: #cccccc;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.rent-item label {
+    font-weight: bold;
+    font-size: 16px;
+    width: 600px;
+}
+
+.rent-item label select {
+    width: 600px;
+    padding: 5px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-family: inherit;
+}
+
+.rent-item label select option {
+    font-family: inherit;
+    font-size: 16px;
+}
+
+.rent-item input,
+.rent-item textarea {
+    width: 600px;
+    padding: 5px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-family: inherit;
+}
+
+.rent-item textarea {
+    resize: vertical;
+    min-height: 100px;
+    width: 600px;
+}
+
+.rent-item button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.rent-item button:hover {
+    background-color: #0056b3;
+}
+

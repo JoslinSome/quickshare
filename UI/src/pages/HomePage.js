@@ -2,27 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import './HomePage.css';
 import {auth} from '../config/firebaseConfig';
-
-function AuthCheck({children}) {
-  const [isSignedIn, setIsSignedIn] = useState(false);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      if (user) {
-        setIsSignedIn(true);
-      } else {
-        navigate('/sign-in');
-      }
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, [navigate]);
-
-  return <>{isSignedIn && children}</>;
-}
+import {AuthCheck} from '../components/AuthCheck';
 
 function HomePage() {
   const signOut = async () => {
@@ -35,9 +15,10 @@ function HomePage() {
 
   return (
     <AuthCheck>
-      <div className="home-page">
-        <h1>Home Page</h1>
-        <button onClick={signOut}>Sign Out</button>
+      <div className="background">
+        <div className="home-page">
+          <h1>Home Page</h1>
+        </div>
       </div>
     </AuthCheck>
   );
