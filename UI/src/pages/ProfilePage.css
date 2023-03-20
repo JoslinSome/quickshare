@@ -6,7 +6,18 @@
     border-radius: 10px;
     margin-top: 28px;
 }
-
+.profile::before {
+    content: "";
+    height: 60vh;
+    background-color: #001F2D;
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-top: -3vh;
+}
 .profile-picture {
     position: relative;
     width: 150px;
@@ -46,16 +57,4 @@
 .profile-info {
     margin-top: 20px;
     color: #cccccc;
-}
-
-.background{
-    height: 60vh;
-    background-color: #001F2D;
-    z-index: -1;
-    position: sticky;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin-top: -3vh;
 }

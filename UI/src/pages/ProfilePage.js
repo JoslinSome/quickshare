@@ -47,7 +47,7 @@ function Profile() {
     if (!e.target.files || e.target.files.length === 0) return;
 
     const file = e.target.files[0];
-    const resizedImage = await getResizedImage(file, 150, 150);
+    const resizedImage = await getResizedImage(file, 400, 400);
 
     setLoading(true);
     setProgress(0);
@@ -77,36 +77,34 @@ function Profile() {
   };
 
   return (
-    <div className="background">
-      <div className="profile">
-        <div className="profile-picture">
-          <img
-            src={user?.photoURL || 'https://via.placeholder.com/150'}
-            alt="Profile"
-          />
-          {loading && (
-            <div className="loading-overlay">
-              <div className="spinner-border text-light" role="status">
-                <span className="visually-hidden">Loading...</span>
-              </div>
-              <div>{progress.toFixed(0)}%</div>
-            </div>
-          )}
-        </div>
-        <label htmlFor="profile-pic-upload" className="profile-pic-upload">
-          Change Profile Picture
-        </label>
-        <input
-          type="file"
-          id="profile-pic-upload"
-          accept="image/*"
-          onChange={handleImageUpload}
-          style={{display: 'none'}}
+    <div className="profile">
+      <div className="profile-picture">
+        <img
+          src={user?.photoURL || 'https://via.placeholder.com/150'}
+          alt="Profile"
         />
-        <div className="profile-info">
-          <h2>{user?.displayName || 'No Name'}</h2>
-          <p>{user?.email}</p>
-        </div>
+        {loading && (
+          <div className="loading-overlay">
+            <div className="spinner-border text-light" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+            <div>{progress.toFixed(0)}%</div>
+          </div>
+        )}
+      </div>
+      <label htmlFor="profile-pic-upload" className="profile-pic-upload">
+        Change Profile Picture
+      </label>
+      <input
+        type="file"
+        id="profile-pic-upload"
+        accept="image/*"
+        onChange={handleImageUpload}
+        style={{display: 'none'}}
+      />
+      <div className="profile-info">
+        <h2>{user?.displayName || 'No Name'}</h2>
+        <p>{user?.email}</p>
       </div>
     </div>
   );

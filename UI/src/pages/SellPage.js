@@ -48,7 +48,7 @@ const SellPage = ({currentUser}) => {
       let newImages = [];
       console.log('newImages: ', newImages);
       console.log('images: ', images);
-      const resizedImage = await getResizedImage(file, 150, 150);
+      const resizedImage = await getResizedImage(file, 400, 400);
 
       setLoading(true);
       setProgress(0);
@@ -112,72 +112,68 @@ const SellPage = ({currentUser}) => {
   };
 
   return (
-    <div className="background">
-      <div className="rent-item">
-        <h1>Create Rental Listing</h1>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Upload Images (up to 5):
-            <input type="file" multiple onChange={handleImageUpload} />
-          </label>
-          <div className="uploaded-images">
-            {imageURLs.map((url, index) => (
-              <img key={index} src={url} alt={`uploaded-${index}`} />
+    <div className="rent-item">
+      <h1>Create Rental Listing</h1>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Upload Images (up to 5):
+          <input type="file" multiple onChange={handleImageUpload} />
+        </label>
+        <div className="uploaded-images">
+          {imageURLs.map((url, index) => (
+            <img key={index} src={url} alt={`uploaded-${index}`} />
+          ))}
+        </div>
+        <br />
+        <label>
+          Category:
+          <select value={category} onChange={e => setCategory(e.target.value)}>
+            <option value="">Select a category</option>
+            {categories.map(cat => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
             ))}
-          </div>
-          <br />
-          <label>
-            Category:
-            <select
-              value={category}
-              onChange={e => setCategory(e.target.value)}>
-              <option value="">Select a category</option>
-              {categories.map(cat => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
-          </label>
-          <br />
-          <label>
-            Price:
-            <input
-              type="number"
-              value={price}
-              onChange={e => setPrice(e.target.value)}
-            />
-          </label>
-          <br />
-          <label>
-            Description:
-            <textarea
-              value={description}
-              onChange={e => setDescription(e.target.value)}
-            />
-          </label>
-          <br />
-          <label>
-            Time Limit (hours):
-            <input
-              type="number"
-              value={timeLimit}
-              onChange={e => setTimeLimit(e.target.value)}
-            />
-          </label>
-          <br />
-          <label>
-            List Date:
-            <input
-              type="date"
-              value={listDate}
-              onChange={e => setListDate(e.target.value)}
-            />
-          </label>
-          <br />
-          <button type="submit">Submit Listing</button>
-        </form>
-      </div>
+          </select>
+        </label>
+        <br />
+        <label>
+          Price:
+          <input
+            type="number"
+            value={price}
+            onChange={e => setPrice(e.target.value)}
+          />
+        </label>
+        <br />
+        <label>
+          Description:
+          <textarea
+            value={description}
+            onChange={e => setDescription(e.target.value)}
+          />
+        </label>
+        <br />
+        <label>
+          Time Limit (hours):
+          <input
+            type="number"
+            value={timeLimit}
+            onChange={e => setTimeLimit(e.target.value)}
+          />
+        </label>
+        <br />
+        <label>
+          List Date:
+          <input
+            type="date"
+            value={listDate}
+            onChange={e => setListDate(e.target.value)}
+          />
+        </label>
+        <br />
+        <button type="submit">Submit Listing</button>
+      </form>
     </div>
   );
 };

@@ -5,7 +5,20 @@
     justify-content: center;
     height: 100vh;
     font-size: 1.5rem;
-    color: #ffffff;
+    color:#888888;
+}
+
+.settings-page::before {
+    content: "";
+    height: 60vh;
+    background-color: #001F2D;
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-top: -3vh;
 }
 
 .settings-input {
@@ -22,8 +35,8 @@
 .settings-input input {
     padding: 0.5rem;
     border-radius: 10px;
-    border: none;
     font-size: 1rem;
+    border: 1px solid #888888;
 }
 
 button {
@@ -40,16 +53,4 @@ button {
 button:hover {
     background-color: rgba(255, 255, 255, 0.8);
     color: #111;
-}
-
-.background{
-    height: 60vh;
-    background-color: #001F2D;
-    z-index: -1;
-    position: sticky;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin-top: -3vh;
 }
