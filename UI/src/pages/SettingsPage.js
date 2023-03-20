@@ -10,7 +10,7 @@ import {
   updatePassword,
 } from 'firebase/auth';
 import {doc, updateDoc, getDoc} from 'firebase/firestore';
-import {Alert} from 'antd';
+import {AuthCheck} from '../components/AuthCheck';
 
 function SettingsPage(message) {
   const [user, setUser] = useState(auth.currentUser);
@@ -88,74 +88,76 @@ function SettingsPage(message) {
     }
   };
   return (
-    <div className="settings-page">
-      <h1>Account Settings</h1>
-      {userDataSet ? (
-        <div className="settings-input">
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-          />
-        </div>
-      ) : null}
-      {userDataSet ? (
-        <div className="settings-input">
-          <label>Name:</label>
-          <input
-            type="text"
-            value={name}
-            onChange={e => setName(e.target.value)}
-          />
-        </div>
-      ) : null}
-      {userDataSet ? (
-        <div className="settings-input">
-          <label>Phone:</label>
-          <input
-            type="tel"
-            value={phone}
-            onChange={e => setPhone(e.target.value)}
-          />
-        </div>
-      ) : null}
-      {userDataSet ? (
-        <div className="settings-input">
-          <label>Address:</label>
-          <input
-            type="text"
-            value={address}
-            onChange={e => setAddress(e.target.value)}
-          />
-        </div>
-      ) : null}
-      {userDataSet ? (
-        <div className="settings-input">
-          <label>Current Password (if updating password):</label>
-          <input
-            type="password"
-            value={currentPassword}
-            onChange={e => setCurrentPassword(e.target.value)}
-          />
-        </div>
-      ) : null}
-      {userDataSet ? (
-        <div className="settings-input">
-          <label>New Password (optional):</label>
-          <input
-            type="password"
-            value={newPassword}
-            onChange={e => setNewPassword(e.target.value)}
-          />
-        </div>
-      ) : null}
-      {userDataSet ? (
-        <button onClick={updateSettings}>Update Settings</button>
-      ) : (
-        <div>Loading...</div>
-      )}
-    </div>
+    <AuthCheck>
+      <div className="settings-page">
+        <h1>Account Settings</h1>
+        {userDataSet ? (
+          <div className="settings-input">
+            <label>Email:</label>
+            <input
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+            />
+          </div>
+        ) : null}
+        {userDataSet ? (
+          <div className="settings-input">
+            <label>Name:</label>
+            <input
+              type="text"
+              value={name}
+              onChange={e => setName(e.target.value)}
+            />
+          </div>
+        ) : null}
+        {userDataSet ? (
+          <div className="settings-input">
+            <label>Phone:</label>
+            <input
+              type="tel"
+              value={phone}
+              onChange={e => setPhone(e.target.value)}
+            />
+          </div>
+        ) : null}
+        {userDataSet ? (
+          <div className="settings-input">
+            <label>Address:</label>
+            <input
+              type="text"
+              value={address}
+              onChange={e => setAddress(e.target.value)}
+            />
+          </div>
+        ) : null}
+        {userDataSet ? (
+          <div className="settings-input">
+            <label>Current Password (if updating password):</label>
+            <input
+              type="password"
+              value={currentPassword}
+              onChange={e => setCurrentPassword(e.target.value)}
+            />
+          </div>
+        ) : null}
+        {userDataSet ? (
+          <div className="settings-input">
+            <label>New Password (optional):</label>
+            <input
+              type="password"
+              value={newPassword}
+              onChange={e => setNewPassword(e.target.value)}
+            />
+          </div>
+        ) : null}
+        {userDataSet ? (
+          <button onClick={updateSettings}>Update Settings</button>
+        ) : (
+          <div>Loading...</div>
+        )}
+      </div>
+    </AuthCheck>
   );
 }
 

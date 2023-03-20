@@ -4,6 +4,7 @@ import {getDownloadURL, ref, uploadBytesResumable} from 'firebase/storage';
 import {getResizedImage} from '../utils/imageUtils';
 import './ProfilePage.css';
 import {getUser, updateUser} from '../firebaseFunctions/firebaseFunctions';
+import {AuthCheck} from '../components/AuthCheck';
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -77,36 +78,38 @@ function Profile() {
   };
 
   return (
-    <div className="profile">
-      <div className="profile-picture">
-        <img
-          src={user?.photoURL || 'https://via.placeholder.com/150'}
-          alt="Profile"
-        />
-        {loading && (
-          <div className="loading-overlay">
-            <div className="spinner-border text-light" role="status">
-              <span className="visually-hidden">Loading...</span>
+    <AuthCheck>
+      <div className="profile">
+        <div className="profile-picture">
+          <img
+            src={user?.photoURL || 'https://via.placeholder.com/150'}
+            alt="Profile"
+          />
+          {loading && (
+            <div className="loading-overlay">
+              <div className="spinner-border text-light" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <div>{progress.toFixed(0)}%</div>
             </div>
-            <div>{progress.toFixed(0)}%</div>
-          </div>
-        )}
+          )}
+        </div>
+        <label htmlFor="profile-pic-upload" className="profile-pic-upload">
+          Change Profile Picture
+        </label>
+        <input
+          type="file"
+          id="profile-pic-upload"
+          accept="image/*"
+          onChange={handleImageUpload}
+          style={{display: 'none'}}
+        />
+        <div className="profile-info">
+          <h2>{user?.displayName || 'No Name'}</h2>
+          <p>{user?.email}</p>
+        </div>
       </div>
-      <label htmlFor="profile-pic-upload" className="profile-pic-upload">
-        Change Profile Picture
-      </label>
-      <input
-        type="file"
-        id="profile-pic-upload"
-        accept="image/*"
-        onChange={handleImageUpload}
-        style={{display: 'none'}}
-      />
-      <div className="profile-info">
-        <h2>{user?.displayName || 'No Name'}</h2>
-        <p>{user?.email}</p>
-      </div>
-    </div>
+    </AuthCheck>
   );
 }
 
