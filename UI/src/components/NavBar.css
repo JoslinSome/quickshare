@@ -1,5 +1,5 @@
 .navbar {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #001f2d 30%, #ffa100 70%);
     height: 60px;
     display: flex;
     align-items: center;
@@ -55,7 +55,7 @@
 }
 
 .nav-links {
-    color: #000000;
+    color: #ffffff;
     display: flex;
     align-items: center;
     text-decoration: none;
